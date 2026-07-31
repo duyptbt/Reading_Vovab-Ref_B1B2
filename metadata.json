@@ -1,0 +1,6 @@
+{
+  "name": "Vocabulary & Referents - B1 & B2 Reading",
+  "description": "Interactive B1 & B2 Reading Master App featuring Chapter 1: Vocabulary Questions with lessons, strategies, root word explorer, practice passages, and pop quizzes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
