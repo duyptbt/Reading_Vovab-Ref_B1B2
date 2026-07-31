@@ -1,4 +1,4 @@
-export type ChapterPart = 'part1' | 'part2' | 'part3' | 'part4' | 'part5_practice' | 'part5_quiz' | 'vault';
+export type ChapterPart = 'part1' | 'part2' | 'part3' | 'part4' | 'part5_practice' | 'part5_quiz' | 'quiz_yourself' | 'vault';
 export type ChapterNumber = 1 | 2;
 export type AppLanguage = 'en' | 'vi';
 

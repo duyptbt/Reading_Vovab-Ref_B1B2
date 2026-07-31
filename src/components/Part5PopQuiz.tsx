@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { POP_QUIZ_QUESTIONS } from '../data/chapter1Data';
 import { CHAPTER2_POP_QUIZ_QUESTIONS } from '../data/chapter2Data';
-import { CheckCircle2, XCircle, Volume2, Bookmark, BookmarkCheck } from 'lucide-react';
+import { CheckCircle2, XCircle, Volume2, Bookmark, BookmarkCheck, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { ChapterNumber } from '../types';
 
@@ -10,6 +10,7 @@ interface Part5PopQuizProps {
   userAnswers: Record<number, 'A' | 'B' | 'C' | 'D'>;
   onAnswerQuestion: (qId: number, choiceLetter: 'A' | 'B' | 'C' | 'D') => void;
   onResetQuiz: () => void;
+  onNavigateNext?: () => void;
   bookmarkedWords: string[];
   onToggleBookmark: (word: string) => void;
 }
@@ -19,6 +20,7 @@ export const Part5PopQuiz: React.FC<Part5PopQuizProps> = ({
   userAnswers,
   onAnswerQuestion,
   onResetQuiz,
+  onNavigateNext,
   bookmarkedWords,
   onToggleBookmark
 }) => {
@@ -271,6 +273,40 @@ export const Part5PopQuiz: React.FC<Part5PopQuizProps> = ({
           );
         })}
       </div>
+
+      {/* Bottom Completion & Next Step Action Card */}
+      {onNavigateNext && (
+        <div className="bg-slate-900 border border-slate-800 text-white p-6 sm:p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+          <div className="space-y-1 text-center sm:text-left">
+            <span className="text-amber-400 text-[10px] font-bold uppercase tracking-widest">
+              {isCh2
+                ? (language === 'vi' ? 'HOÀN THÀNH CHƯƠNG 2' : 'CHAPTER 2 COMPLETE')
+                : (language === 'vi' ? 'HOÀN THÀNH CHƯƠNG 1' : 'CHAPTER 1 COMPLETE')}
+            </span>
+            <h4 className="text-lg sm:text-xl font-bold">
+              {isCh2
+                ? (language === 'vi' ? 'Tiếp Tục: Bài Tập Tổng Hợp Chapters 1 & 2 (Quiz Yourself)' : 'Next Step: Chapters 1 & 2 Synthesis Exercises (Quiz Yourself)')
+                : (language === 'vi' ? 'Tiếp Tục: Chuyển Sang Chương 2 (Từ Thay Thế)' : 'Next Step: Proceed to Chapter 2 (Referent Questions)')}
+            </h4>
+            <p className="text-slate-400 text-xs">
+              {isCh2
+                ? (language === 'vi' ? 'Thử thách 30 câu hỏi đọc hiểu tổng hợp từ 5 bài đọc thực tế.' : 'Test your skills on 30 synthesis questions from 5 reading passages.')
+                : (language === 'vi' ? 'Học chiến lược giải quyết các câu hỏi về đại từ và từ thay thế.' : 'Learn strategies for pronoun and referent questions.')}
+            </p>
+          </div>
+          <button
+            onClick={onNavigateNext}
+            className="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md shrink-0 flex items-center space-x-2"
+          >
+            <span>
+              {isCh2
+                ? (language === 'vi' ? 'Làm Quiz Yourself' : 'Start Quiz Yourself')
+                : (language === 'vi' ? 'Sang Chương 2' : 'Go to Chapter 2')}
+            </span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChapterPart, ChapterNumber } from '../types';
-import { BookOpen, Sparkles, Zap, Layers, Bookmark, Flame, Award, ChevronRight, Globe, Layers3 } from 'lucide-react';
+import { BookOpen, Sparkles, Zap, Layers, Bookmark, Flame, Award, ChevronRight, Globe, Layers3, CheckSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
@@ -15,6 +15,8 @@ interface NavbarProps {
     practiceTotal: number;
     quizCompleted: number;
     quizTotal: number;
+    quizYourselfCompleted?: number;
+    quizYourselfTotal?: number;
     bookmarkedCount: number;
   };
 }
@@ -28,18 +30,27 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const { language, setLanguage, getTranslation } = useLanguage();
   const [selectedLevel, setSelectedLevel] = useState<'B1' | 'B2'>('B1');
-  const totalCompleted = progressStats.warmUpCompleted + progressStats.practiceCompleted + progressStats.quizCompleted;
-  const totalQuestions = progressStats.warmUpTotal + progressStats.practiceTotal + progressStats.quizTotal;
+  const totalCompleted = progressStats.warmUpCompleted + progressStats.practiceCompleted + progressStats.quizCompleted + (progressStats.quizYourselfCompleted || 0);
+  const totalQuestions = progressStats.warmUpTotal + progressStats.practiceTotal + progressStats.quizTotal + (progressStats.quizYourselfTotal || 0);
   const overallPercentage = totalQuestions > 0 ? Math.round((totalCompleted / totalQuestions) * 100) : 0;
 
-  const navItems = [
+  const navItems = activeChapter === 1 && activePart !== 'quiz_yourself' ? [
     { id: 'part1' as ChapterPart, num: '01', label: getTranslation('part1Nav'), icon: BookOpen },
     { id: 'part2' as ChapterPart, num: '02', label: getTranslation('part2Nav'), icon: Zap },
-    { id: 'part3' as ChapterPart, num: '03', label: activeChapter === 2 ? (language === 'vi' ? 'Phần III: Đại Từ' : 'Part III: Pronouns') : getTranslation('part3Nav'), icon: Layers },
+    { id: 'part3' as ChapterPart, num: '03', label: getTranslation('part3Nav'), icon: Layers },
     { id: 'part4' as ChapterPart, num: '04', label: getTranslation('part4Nav'), icon: Flame },
     { id: 'part5_practice' as ChapterPart, num: '05', label: getTranslation('part5PracticeNav'), icon: Sparkles },
     { id: 'part5_quiz' as ChapterPart, num: '06', label: getTranslation('part5QuizNav'), icon: Award },
     { id: 'vault' as ChapterPart, num: '07', label: getTranslation('vaultNav'), icon: Bookmark },
+  ] : [
+    { id: 'part1' as ChapterPart, num: '01', label: getTranslation('part1Nav'), icon: BookOpen },
+    { id: 'part2' as ChapterPart, num: '02', label: getTranslation('part2Nav'), icon: Zap },
+    { id: 'part3' as ChapterPart, num: '03', label: language === 'vi' ? 'Phần III: Đại Từ' : 'Part III: Pronouns', icon: Layers },
+    { id: 'part4' as ChapterPart, num: '04', label: getTranslation('part4Nav'), icon: Flame },
+    { id: 'part5_practice' as ChapterPart, num: '05', label: getTranslation('part5PracticeNav'), icon: Sparkles },
+    { id: 'part5_quiz' as ChapterPart, num: '06', label: getTranslation('part5QuizNav'), icon: Award },
+    { id: 'quiz_yourself' as ChapterPart, num: '07', label: getTranslation('quizYourselfNav'), icon: CheckSquare },
+    { id: 'vault' as ChapterPart, num: '08', label: getTranslation('vaultNav'), icon: Bookmark },
   ];
 
   return (
@@ -92,9 +103,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Chapter Selector Toggle */}
             <div className="flex bg-indigo-50 border border-indigo-200/80 p-0.5 rounded-lg text-xs">
               <button
-                onClick={() => setActiveChapter(1)}
+                onClick={() => {
+                  setActiveChapter(1);
+                  if (activePart === 'quiz_yourself') setActivePart('part1');
+                }}
                 className={`px-2.5 py-1 font-bold rounded-md transition-all ${
-                  activeChapter === 1
+                  activeChapter === 1 && activePart !== 'quiz_yourself'
                     ? 'bg-indigo-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
@@ -102,14 +116,30 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {language === 'vi' ? 'Chương 1' : 'Chapter 1'}
               </button>
               <button
-                onClick={() => setActiveChapter(2)}
+                onClick={() => {
+                  setActiveChapter(2);
+                  if (activePart === 'quiz_yourself') setActivePart('part1');
+                }}
                 className={`px-2.5 py-1 font-bold rounded-md transition-all ${
-                  activeChapter === 2
+                  activeChapter === 2 && activePart !== 'quiz_yourself'
                     ? 'bg-indigo-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {language === 'vi' ? 'Chương 2' : 'Chapter 2'}
+              </button>
+              <button
+                onClick={() => {
+                  setActiveChapter(2);
+                  setActivePart('quiz_yourself');
+                }}
+                className={`px-2.5 py-1 font-bold rounded-md transition-all ${
+                  activePart === 'quiz_yourself'
+                    ? 'bg-amber-500 text-indigo-950 shadow-xs'
+                    : 'text-amber-800 hover:text-amber-950 font-extrabold'
+                }`}
+              >
+                {language === 'vi' ? 'Quiz Yourself (C1-2)' : 'Quiz Yourself (Ch 1-2)'}
               </button>
             </div>
 
@@ -151,7 +181,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-slate-300">/</span>
               <span className="text-slate-600">{selectedLevel} Reading</span>
               <span className="text-slate-300">/</span>
-              <span className="text-slate-900 font-bold">{getTranslation('chapter1')}</span>
+              <span className="text-slate-900 font-bold">
+                {activePart === 'quiz_yourself'
+                  ? (language === 'vi' ? 'Tổng Hợp Chương 1 & 2' : 'Chapters 1-2 Synthesis')
+                  : activeChapter === 1
+                  ? getTranslation('chapter1')
+                  : (language === 'vi' ? 'Chương 2: Từ Thay Thế' : 'Chapter 2: Referent Questions')}
+              </span>
             </div>
 
             {/* Progress Bar */}

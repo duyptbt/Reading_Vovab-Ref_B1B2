@@ -9,6 +9,7 @@ import { Part3Pronouns } from './components/Part3Pronouns';
 import { Part4WarmUp } from './components/Part4WarmUp';
 import { Part5Practice } from './components/Part5Practice';
 import { Part5PopQuiz } from './components/Part5PopQuiz';
+import { QuizYourself } from './components/QuizYourself';
 import { WordVault } from './components/WordVault';
 
 function AppContent() {
@@ -71,6 +72,16 @@ function AppContent() {
     }
   });
 
+  // Chapters 1-2 Synthesis "Quiz Yourself" Answers
+  const [quizYourselfAnswers, setQuizYourselfAnswers] = useState<Record<number, number>>(() => {
+    try {
+      const saved = localStorage.getItem('vocab_quizYourselfAnswers');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
   const [bookmarkedWords, setBookmarkedWords] = useState<string[]>(() => {
     try {
       const saved = localStorage.getItem('vocab_bookmarkedWords');
@@ -106,6 +117,10 @@ function AppContent() {
   }, [ch2QuizAnswers]);
 
   useEffect(() => {
+    localStorage.setItem('vocab_quizYourselfAnswers', JSON.stringify(quizYourselfAnswers));
+  }, [quizYourselfAnswers]);
+
+  useEffect(() => {
     localStorage.setItem('vocab_bookmarkedWords', JSON.stringify(bookmarkedWords));
   }, [bookmarkedWords]);
 
@@ -132,6 +147,8 @@ function AppContent() {
     practiceTotal: activeChapter === 1 ? 60 : 20,
     quizCompleted: Object.keys(currentQuizAnswers).length,
     quizTotal: 25,
+    quizYourselfCompleted: Object.keys(quizYourselfAnswers).length,
+    quizYourselfTotal: 30,
     bookmarkedCount: bookmarkedWords.length
   };
 
@@ -211,6 +228,26 @@ function AppContent() {
                 setCurrentQuizAnswers(prev => ({ ...prev, [qId]: letter }));
               }}
               onResetQuiz={() => setCurrentQuizAnswers({})}
+              onNavigateNext={() => {
+                if (activeChapter === 1) {
+                  setActiveChapter(2);
+                  setActivePart('part1');
+                } else {
+                  setActivePart('quiz_yourself');
+                }
+              }}
+              bookmarkedWords={bookmarkedWords}
+              onToggleBookmark={handleToggleBookmark}
+            />
+          )}
+
+          {activePart === 'quiz_yourself' && (
+            <QuizYourself
+              userAnswers={quizYourselfAnswers}
+              onAnswerQuestion={(qId, optIdx) => {
+                setQuizYourselfAnswers(prev => ({ ...prev, [qId]: optIdx }));
+              }}
+              onResetAnswers={() => setQuizYourselfAnswers({})}
               bookmarkedWords={bookmarkedWords}
               onToggleBookmark={handleToggleBookmark}
             />

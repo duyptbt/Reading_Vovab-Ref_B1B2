@@ -64,6 +64,7 @@ export const translations: Record<AppLanguage, Record<string, string>> = {
     part4Nav: "Part IV: Warm Up",
     part5PracticeNav: "Part V: Passages",
     part5QuizNav: "Pop Quiz",
+    quizYourselfNav: "Quiz Yourself",
     vaultNav: "Word Vault",
 
     // Labels & Buttons
@@ -137,6 +138,7 @@ export const translations: Record<AppLanguage, Record<string, string>> = {
     part4Nav: "Phần IV: Khởi Động",
     part5PracticeNav: "Phần V: Đoạn Văn",
     part5QuizNav: "Kiểm Tra Nhanh",
+    quizYourselfNav: "Quiz Yourself",
     vaultNav: "Kho Từ Vựng",
 
     // Labels & Buttons
