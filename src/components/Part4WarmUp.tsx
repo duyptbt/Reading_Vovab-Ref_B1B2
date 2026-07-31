@@ -3,6 +3,7 @@ import { WARM_UP_QUESTIONS } from '../data/chapter1Data';
 import { CHAPTER2_WARMUP_QUESTIONS } from '../data/chapter2Data';
 import { CheckCircle2, XCircle, Volume2, Bookmark, BookmarkCheck, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useReaderSettings } from '../context/ReaderSettingsContext';
 import { ChapterNumber } from '../types';
 
 interface Part4WarmUpProps {
@@ -25,6 +26,7 @@ export const Part4WarmUp: React.FC<Part4WarmUpProps> = ({
   onToggleBookmark
 }) => {
   const { language, getTranslation, getExplanation } = useLanguage();
+  const { settings } = useReaderSettings();
   const [filterMode, setFilterMode] = useState<'all' | 'unanswered' | 'incorrect'>('all');
 
   const questions = chapter === 2 ? CHAPTER2_WARMUP_QUESTIONS : WARM_UP_QUESTIONS;
@@ -43,6 +45,7 @@ export const Part4WarmUp: React.FC<Part4WarmUpProps> = ({
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'en-US';
+      utterance.rate = settings.speechSpeed || 1.0;
       window.speechSynthesis.speak(utterance);
     }
   };

@@ -3,6 +3,7 @@ import { POP_QUIZ_QUESTIONS } from '../data/chapter1Data';
 import { CHAPTER2_POP_QUIZ_QUESTIONS } from '../data/chapter2Data';
 import { CheckCircle2, XCircle, Volume2, Bookmark, BookmarkCheck, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useReaderSettings } from '../context/ReaderSettingsContext';
 import { ChapterNumber } from '../types';
 
 interface Part5PopQuizProps {
@@ -25,6 +26,7 @@ export const Part5PopQuiz: React.FC<Part5PopQuizProps> = ({
   onToggleBookmark
 }) => {
   const { language, getTranslation, getExplanation } = useLanguage();
+  const { settings } = useReaderSettings();
   const [filterMode, setFilterMode] = useState<'all' | 'unanswered' | 'incorrect'>('all');
   const [timerSeconds, setTimerSeconds] = useState<number>(0);
   const [timerRunning, setTimerRunning] = useState<boolean>(true);
@@ -65,6 +67,7 @@ export const Part5PopQuiz: React.FC<Part5PopQuizProps> = ({
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'en-US';
+      utterance.rate = settings.speechSpeed || 1.0;
       window.speechSynthesis.speak(utterance);
     }
   };

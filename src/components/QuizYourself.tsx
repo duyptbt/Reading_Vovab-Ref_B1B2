@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { QUIZ_YOURSELF_EXERCISES } from '../data/quizYourselfData';
-import { Volume2, CheckCircle2, XCircle, Bookmark, BookmarkCheck, RotateCcw, HelpCircle } from 'lucide-react';
+import { Volume2, CheckCircle2, XCircle, Bookmark, BookmarkCheck, RotateCcw, HelpCircle, Sliders } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useReaderSettings } from '../context/ReaderSettingsContext';
 
 interface QuizYourselfProps {
   userAnswers: Record<number, number>; // qId (1..30) -> optionIndex (0..3)
@@ -19,6 +20,13 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
   onToggleBookmark
 }) => {
   const { language, getExplanation } = useLanguage();
+  const {
+    settings,
+    getPassageThemeClasses,
+    getHighlightClasses,
+    getTypographyClasses,
+    toggleSettingsModal
+  } = useReaderSettings();
   const [selectedExerciseId, setSelectedExerciseId] = useState<number>(1);
   const [activeQuestionId, setActiveQuestionId] = useState<number | null>(null);
   const [filterMode, setFilterMode] = useState<'all' | 'unanswered' | 'incorrect'>('all');
@@ -43,6 +51,7 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'en-US';
+      utterance.rate = settings.speechSpeed || 1.0;
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -78,11 +87,7 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }
             }}
-            className={`cursor-pointer px-1.5 py-0.5 mx-0.5 rounded font-bold transition-all ${
-              isSelected
-                ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-400'
-                : 'bg-amber-200 text-amber-900 hover:bg-amber-300'
-            }`}
+            className={`cursor-pointer px-1.5 py-0.5 mx-0.5 rounded transition-all ${getHighlightClasses(isSelected)}`}
             title={`Click to view question for "${matchedWord}"`}
           >
             {part}
@@ -218,21 +223,40 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
       </div>
 
       {/* Active Exercise Reading Passage Box */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 className="text-lg font-bold text-slate-900 flex items-center space-x-2">
-            <span className="w-3 h-3 rounded-full bg-indigo-600 inline-block"></span>
-            <span>{activeExercise.title}</span>
-          </h3>
-          <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-            {language === 'vi' ? 'Câu ' + activeExercise.questions[0].id + ' – ' + activeExercise.questions[5].id : 'Questions ' + activeExercise.questions[0].id + ' – ' + activeExercise.questions[5].id}
-          </span>
-        </div>
+      {(() => {
+        const themeCls = getPassageThemeClasses();
+        const typoCls = getTypographyClasses();
 
-        <div className="text-slate-800 text-base sm:text-lg leading-relaxed sm:leading-loose font-serif bg-slate-50/80 p-5 sm:p-6 rounded-xl border border-slate-200/80">
-          {renderInteractivePassage()}
-        </div>
-      </div>
+        return (
+          <div className={`${themeCls.cardBg} rounded-2xl p-6 sm:p-8 border ${themeCls.border} shadow-sm space-y-4 transition-all`}>
+            <div className={`flex items-center justify-between border-b ${themeCls.border} pb-3 flex-wrap gap-2`}>
+              <h3 className={`text-lg font-bold ${themeCls.text} flex items-center space-x-2`}>
+                <span className="w-3 h-3 rounded-full bg-indigo-600 inline-block"></span>
+                <span>{activeExercise.title}</span>
+              </h3>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={toggleSettingsModal}
+                  className="flex items-center space-x-1 text-xs text-slate-600 hover:text-slate-900 bg-slate-100/80 px-2.5 py-1.5 rounded-lg border border-slate-200 font-semibold transition-colors"
+                  title="Customize fonts, colors & theme"
+                >
+                  <Sliders className="w-3.5 h-3.5 text-indigo-600" />
+                  <span className="hidden sm:inline">{language === 'vi' ? 'Tùy chỉnh' : 'UI Settings'}</span>
+                </button>
+
+                <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
+                  {language === 'vi' ? 'Câu ' + activeExercise.questions[0].id + ' – ' + activeExercise.questions[5].id : 'Questions ' + activeExercise.questions[0].id + ' – ' + activeExercise.questions[5].id}
+                </span>
+              </div>
+            </div>
+
+            <div className={`${themeCls.bg} ${themeCls.text} ${typoCls} p-5 sm:p-6 rounded-xl border ${themeCls.border} transition-all`}>
+              {renderInteractivePassage()}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Questions Grid / List for Active Exercise */}
       <div className="space-y-4">
