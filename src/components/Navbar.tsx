@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ChapterPart, ChapterNumber } from '../types';
-import { BookOpen, Sparkles, Zap, Layers, Bookmark, Flame, Award, ChevronRight, Globe, Layers3, CheckSquare } from 'lucide-react';
+import { BookOpen, Sparkles, Zap, Layers, Bookmark, Flame, Award, ChevronRight, Globe, Layers3, CheckSquare, Palette, Sliders } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useReaderSettings } from '../context/ReaderSettingsContext';
 
 interface NavbarProps {
   activeChapter: ChapterNumber;
@@ -29,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   progressStats
 }) => {
   const { language, setLanguage, getTranslation } = useLanguage();
-  const [selectedLevel, setSelectedLevel] = useState<'B1' | 'B2'>('B1');
+  const { toggleSettingsModal, settings } = useReaderSettings();
   const totalCompleted = progressStats.warmUpCompleted + progressStats.practiceCompleted + progressStats.quizCompleted + (progressStats.quizYourselfCompleted || 0);
   const totalQuestions = progressStats.warmUpTotal + progressStats.practiceTotal + progressStats.quizTotal + (progressStats.quizYourselfTotal || 0);
   const overallPercentage = totalQuestions > 0 ? Math.round((totalCompleted / totalQuestions) * 100) : 0;
@@ -59,48 +60,24 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between py-3 border-b border-slate-100 gap-3">
           
-          {/* Logo & Level Selector */}
-          <div className="flex items-center space-x-3 sm:space-x-4 flex-wrap gap-y-2">
-            <div 
-              className="flex items-center space-x-2.5 cursor-pointer" 
-              onClick={() => setActivePart('part1')}
-            >
-              <div className="w-8 h-8 bg-indigo-600 flex items-center justify-center rounded-sm text-white font-bold text-xs italic shadow-sm">
-                VR
-              </div>
-              <div>
-                <h1 className="font-bold text-sm tracking-tight text-slate-900 uppercase">
-                  {getTranslation('appName')}
-                </h1>
-                <p className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">{getTranslation('subName')}</p>
-              </div>
-            </div>
-
-            {/* Level Selector Toggle */}
-            <div className="flex bg-slate-100 p-0.5 rounded-md text-xs">
-              <button
-                onClick={() => setSelectedLevel('B1')}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-sm transition-all ${
-                  selectedLevel === 'B1'
-                    ? 'bg-white text-indigo-700 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
+            {/* Logo */}
+            <div className="flex items-center space-x-3 sm:space-x-4 flex-wrap gap-y-2">
+              <div 
+                className="flex items-center space-x-2.5 cursor-pointer" 
+                onClick={() => setActivePart('part1')}
               >
-                {getTranslation('levelB1')}
-              </button>
-              <button
-                onClick={() => setSelectedLevel('B2')}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-sm transition-all ${
-                  selectedLevel === 'B2'
-                    ? 'bg-white text-indigo-700 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                {getTranslation('levelB2')}
-              </button>
-            </div>
+                <div className="w-8 h-8 bg-indigo-600 flex items-center justify-center rounded-sm text-white font-bold text-xs italic shadow-sm">
+                  VR
+                </div>
+                <div>
+                  <h1 className="font-bold text-sm tracking-tight text-slate-900 uppercase">
+                    {getTranslation('appName')}
+                  </h1>
+                  <p className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">{getTranslation('subName')}</p>
+                </div>
+              </div>
 
-            {/* Chapter Selector Toggle */}
+              {/* Chapter Selector Toggle */}
             <div className="flex bg-indigo-50 border border-indigo-200/80 p-0.5 rounded-lg text-xs">
               <button
                 onClick={() => {
@@ -172,6 +149,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Reader & UI Customization Button */}
+            <button
+              onClick={toggleSettingsModal}
+              className="flex items-center space-x-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 border border-indigo-200/80 text-indigo-900 font-bold px-3 py-1.5 rounded-md text-xs shadow-2xs transition-all hover:scale-105"
+              title="Customize UI, Fonts, Themes & Layout"
+            >
+              <Palette className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+              <span className="hidden sm:inline">🎨 {language === 'vi' ? 'Tùy Chỉnh Giao Diện' : 'UI Options'}</span>
+            </button>
           </div>
 
           {/* Breadcrumb & Progress bar */}
@@ -179,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="hidden lg:flex items-center space-x-2 text-xs text-slate-400 font-medium">
               <span>{getTranslation('curriculum')}</span>
               <span className="text-slate-300">/</span>
-              <span className="text-slate-600">{selectedLevel} Reading</span>
+              <span className="text-slate-600">Pattern Reading</span>
               <span className="text-slate-300">/</span>
               <span className="text-slate-900 font-bold">
                 {activePart === 'quiz_yourself'

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { PRACTICE_PASSAGES } from '../data/chapter1Data';
 import { CHAPTER2_PRACTICE_PASSAGES } from '../data/chapter2Data';
-import { Volume2, CheckCircle2, XCircle, Bookmark, BookmarkCheck, ArrowRight, BookOpen } from 'lucide-react';
+import { Volume2, CheckCircle2, XCircle, Bookmark, BookmarkCheck, ArrowRight, BookOpen, Sliders } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useReaderSettings } from '../context/ReaderSettingsContext';
 import { ChapterNumber } from '../types';
 
 interface Part5PracticeProps {
@@ -25,6 +26,13 @@ export const Part5Practice: React.FC<Part5PracticeProps> = ({
   onToggleBookmark
 }) => {
   const { language, getTranslation, getExplanation } = useLanguage();
+  const {
+    settings,
+    getPassageThemeClasses,
+    getHighlightClasses,
+    getTypographyClasses,
+    toggleSettingsModal
+  } = useReaderSettings();
   const passages = chapter === 2 ? CHAPTER2_PRACTICE_PASSAGES : PRACTICE_PASSAGES;
   const isCh2 = chapter === 2;
 
@@ -53,8 +61,10 @@ export const Part5Practice: React.FC<Part5PracticeProps> = ({
   const handleSpeak = (text: string) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
+      const cleanText = text.replace(/\*\*/g, '');
+      const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'en-US';
+      utterance.rate = settings.speechSpeed || 1.0;
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -62,14 +72,52 @@ export const Part5Practice: React.FC<Part5PracticeProps> = ({
   // Function to render passage text with interactive highlighted target words
   const renderInteractivePassage = () => {
     if (!activePassage) return null;
-    let text = activePassage.passageText || '';
+    const rawText = activePassage.passageText || '';
     const words = activePassage.targetWords || [];
 
-    if (!words.length) return text;
+    if (!words.length) return rawText;
 
-    // Create a regex to match any of the target words (case-insensitive)
+    // If passage contains markdown bold markers `**word**`, parse those directly
+    if (rawText.includes('**')) {
+      const parts = rawText.split(/(\*\*.*?\*\*)/g);
+      let boldMatchIndex = 0;
+
+      return parts.map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          const cleanWord = part.slice(2, -2);
+          
+          // Match question by corresponding index or word
+          const matchedQ = activePassage.questions[boldMatchIndex] || activePassage.questions.find(
+            q => q.word.toLowerCase() === cleanWord.toLowerCase()
+          );
+
+          boldMatchIndex++;
+          const isSelected = activeQuestionId === matchedQ?.id;
+
+          return (
+            <mark
+              key={i}
+              onClick={() => {
+                if (matchedQ) {
+                  setActiveQuestionId(matchedQ.id);
+                  const el = document.getElementById(`practice-q-${matchedQ.id}`);
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+              }}
+              className={`cursor-pointer px-1.5 py-0.5 mx-0.5 rounded transition-all ${getHighlightClasses(isSelected)}`}
+              title={`Click to navigate to question for "${cleanWord}"`}
+            >
+              {cleanWord}
+            </mark>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      });
+    }
+
+    // Fallback if no ** markers exist: match word boundaries
     const pattern = new RegExp(`\\b(${words.join('|')})\\b`, 'gi');
-    const parts = text.split(pattern);
+    const parts = rawText.split(pattern);
 
     return parts.map((part, i) => {
       const lowerPart = part.toLowerCase();
@@ -91,11 +139,7 @@ export const Part5Practice: React.FC<Part5PracticeProps> = ({
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }
             }}
-            className={`cursor-pointer px-1.5 py-0.5 mx-0.5 rounded font-bold transition-all ${
-              isSelected
-                ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-400'
-                : 'bg-amber-200 text-amber-900 hover:bg-amber-300'
-            }`}
+            className={`cursor-pointer px-1.5 py-0.5 mx-0.5 rounded transition-all ${getHighlightClasses(isSelected)}`}
             title={`Click to navigate to question for "${matchedWord}"`}
           >
             {part}
@@ -199,28 +243,47 @@ export const Part5Practice: React.FC<Part5PracticeProps> = ({
       </div>
 
       {/* Active Passage Display Card */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <div className="flex items-center space-x-2">
-            <BookOpen className="w-5 h-5 text-indigo-600" />
-            <h3 className="text-lg font-bold text-slate-800">{activePassage.title}</h3>
-          </div>
-          <button
-            onClick={() => handleSpeak(activePassage.passageText)}
-            className="flex items-center space-x-1.5 text-xs text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100 font-semibold"
-          >
-            <Volume2 className="w-4 h-4" />
-            <span>{language === 'vi' ? 'Nghe Toàn Bài Đọc' : 'Read Passage Aloud'}</span>
-          </button>
-        </div>
+      {(() => {
+        const themeCls = getPassageThemeClasses();
+        const typoCls = getTypographyClasses();
 
-        <div className="bg-slate-50/80 p-5 rounded-2xl border border-slate-200/80 text-base sm:text-lg text-slate-800 leading-relaxed space-y-2">
-          <p>{renderInteractivePassage()}</p>
-          <p className="text-xs text-slate-500 font-normal pt-2 border-t border-slate-200/60">
-            {language === 'vi' ? '💡 Mẹo: Bấm vào bất kỳ từ tô đậm nào ở trên để nhảy tới câu hỏi tương ứng bên dưới.' : '💡 Tip: Click any highlighted word above to highlight its question below.'}
-          </p>
-        </div>
-      </div>
+        return (
+          <div className={`${themeCls.cardBg} rounded-2xl p-6 border ${themeCls.border} shadow-sm space-y-4 transition-all`}>
+            <div className={`flex items-center justify-between border-b ${themeCls.border} pb-3 flex-wrap gap-2`}>
+              <div className="flex items-center space-x-2">
+                <BookOpen className="w-5 h-5 text-indigo-600" />
+                <h3 className={`text-lg font-bold ${themeCls.text}`}>{activePassage.title}</h3>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={toggleSettingsModal}
+                  className="flex items-center space-x-1 text-xs text-slate-600 hover:text-slate-900 bg-slate-100/80 px-2.5 py-1.5 rounded-lg border border-slate-200 font-semibold transition-colors"
+                  title="Customize fonts, colors & theme"
+                >
+                  <Sliders className="w-3.5 h-3.5 text-indigo-600" />
+                  <span className="hidden sm:inline">{language === 'vi' ? 'Tùy chỉnh' : 'UI Settings'}</span>
+                </button>
+
+                <button
+                  onClick={() => handleSpeak(activePassage.passageText)}
+                  className="flex items-center space-x-1.5 text-xs text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100 font-semibold"
+                >
+                  <Volume2 className="w-4 h-4" />
+                  <span>{language === 'vi' ? `Nghe (${settings.speechSpeed}x)` : `Read (${settings.speechSpeed}x)`}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className={`${themeCls.bg} p-5 rounded-2xl border ${themeCls.border} ${themeCls.text} ${typoCls} space-y-2 transition-all`}>
+              <p>{renderInteractivePassage()}</p>
+              <p className="text-xs opacity-70 font-sans pt-2 border-t border-slate-200/40">
+                {language === 'vi' ? '💡 Mẹo: Bấm vào bất kỳ từ tô đậm nào ở trên để nhảy tới câu hỏi tương ứng bên dưới.' : '💡 Tip: Click any highlighted word above to highlight its question below.'}
+              </p>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Questions List for Active Passage */}
       <div className="space-y-4">

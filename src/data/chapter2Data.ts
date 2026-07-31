@@ -238,12 +238,12 @@ export const CHAPTER2_WARMUP_QUESTIONS: WarmUpQuestion[] = [
   {
     id: 7,
     sentenceBefore: "The owl watched the rabbits closely, hoping that",
-    options: ["they", "it"],
+    options: ["it", "they"],
     correctOptionIndex: 0,
     sentenceAfter: "would soon be eating them.",
-    explanation: "'they' refers to the owl and other birds or is the subject pronoun. Here 'they' [or owl/predators] would be eating them.",
-    explanationVi: "'they' chỉ đàn chim săn mồi hoặc 'owl' trong ngữ cảnh.",
-    targetWord: "they"
+    explanation: "'it' refers back to 'The owl' (singular subject pronoun for animals). The owl hopes that it will soon be eating 'them' (the rabbits).",
+    explanationVi: "'it' thay thế cho chủ ngữ số ít 'The owl' (con chim cú). Chim cú hy vọng nó ('it') sẽ sớm ăn thịt chúng ('them' = những con thỏ).",
+    targetWord: "it"
   },
   {
     id: 8,
@@ -489,7 +489,7 @@ export const CHAPTER2_PRACTICE_PASSAGES: PracticePassage[] = [
   {
     id: 4,
     title: "Public Aquariums & Marine Life",
-    passageText: "The popularity of public aquariums has risen since the 1970s because **they** started exhibiting more varieties of sea creatures. Today, **they** promote special events, such as allowing people to touch the sea animals or hosting temporary exhibits displaying exotic creatures, in order to draw the public's attention. However, some animal rights groups do not favor such developments because the idea of keeping sea animals captive is disturbing to **them**.",
+    passageText: "The popularity of public aquariums has risen since the 1970s because they started exhibiting more varieties of sea creatures. Today, **they** promote special events, such as allowing people to touch the sea animals or hosting temporary exhibits displaying exotic creatures, in order to draw the public's attention. However, some animal rights groups do not favor such developments because the idea of keeping sea animals captive is disturbing to **them**.",
     targetWords: ["they", "them"],
     questions: [
       {
@@ -525,7 +525,7 @@ export const CHAPTER2_PRACTICE_PASSAGES: PracticePassage[] = [
   {
     id: 5,
     title: "Reading Skills & Context Processing",
-    passageText: "Successful reading requires readers to possess a few skills. It requires **them** to recognize and understand symbols such as letters and punctuation. Reading also demands that **they** relate to the written material by concentrating on **it** using memory, experience, and knowledge.",
+    passageText: "Successful reading requires readers to possess a few skills. It requires them to recognize and understand symbols such as letters and punctuation. Reading also demands that **they** relate to the written material by concentrating on **it** using memory, experience, and knowledge.",
     targetWords: ["they", "it"],
     questions: [
       {
@@ -561,7 +561,7 @@ export const CHAPTER2_PRACTICE_PASSAGES: PracticePassage[] = [
   {
     id: 6,
     title: "Wild Gerbils & Underground Networks",
-    passageText: "Some species of wild gerbils live in the countries of China, Russia, and Mongolia. **They** are usually found in the deserts and sandy grasslands. Gerbils usually eat leaves, roots, and stems. Because there is little vegetation and little rainfall where **they** live, their survival depends on how well **they** dig. They form communities which live together in networks of holes. **These** are active day and night.",
+    passageText: "Some species of wild gerbils live in the countries of China, Russia, and Mongolia. They are usually found in the deserts and sandy grasslands. Gerbils usually eat leaves, roots, and stems. Because there is little vegetation and little rainfall where **they** live, their survival depends on how well they dig. They form communities which live together in networks of holes. **These** are active day and night.",
     targetWords: ["they", "These"],
     questions: [
       {
@@ -633,7 +633,7 @@ export const CHAPTER2_PRACTICE_PASSAGES: PracticePassage[] = [
   {
     id: 8,
     title: "Colonial Powers in the Americas",
-    passageText: "Among the European colonial powers, the English came late to the Americas. By the time England colonized the \"New World,\" settlers from Spain and Portugal had already arrived **there**. Additionally, **they** had already established colonies in the Americas.",
+    passageText: "Among the European colonial powers, the English came late to the Americas. By the time England colonized the \"New World,\" settlers from Spain and Portugal had already arrived **there**. Additionally, **They** had already established colonies in the Americas.",
     targetWords: ["there", "They"],
     questions: [
       {
@@ -669,7 +669,7 @@ export const CHAPTER2_PRACTICE_PASSAGES: PracticePassage[] = [
   {
     id: 9,
     title: "Resource Substitution & Rubber",
-    passageText: "Human beings depend greatly on rubber. In fact, it would be impossible for modern-day people to survive without **it**. However, this is usually not the case with other materials. If people lack one resource, they can often substitute **it** with **another**. For example, plastic can replace glass if **it** is scarce.",
+    passageText: "Human beings depend greatly on rubber. In fact, it would be impossible for modern-day people to survive without it. However, this is usually not the case with other materials. If people lack one resource, they can often substitute it with **another**. For example, plastic can replace glass if **it** is scarce.",
     targetWords: ["another", "it"],
     questions: [
       {
@@ -751,8 +751,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "modestly" }
     ],
     correctLetter: 'A',
-    explanation: "especially = particularly (đặc biệt là)",
-    explanationVi: "especially = particularly (đặc biệt là, nhất là)"
+    explanation: "'Especially' and 'particularly' both mean to a single or distinct degree, above all others.",
+    explanationVi: "'Especially' và 'particularly' đều có nghĩa là đặc biệt là, nhất là."
   },
   {
     id: 2,
@@ -764,8 +764,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "offer to" }
     ],
     correctLetter: 'C',
-    explanation: "refer to = direct to / mention (chỉ đến, đề cập tới)",
-    explanationVi: "refer to = direct to (quy về, trỏ tới, đề cập đến)"
+    explanation: "'Refer to' means to mention, point toward, or direct attention to ('direct to').",
+    explanationVi: "'Refer to' có nghĩa là chỉ đến, trỏ tới hoặc đề cập tới ('direct to')."
   },
   {
     id: 3,
@@ -777,8 +777,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "usually" }
     ],
     correctLetter: 'D',
-    explanation: "normally = usually (thông thường, như thường lệ)",
-    explanationVi: "normally = usually (thông thường, thường xuyên)"
+    explanation: "'Normally' and 'usually' both mean under normal circumstances or ordinarily.",
+    explanationVi: "'Normally' và 'usually' đều có nghĩa là thông thường, theo lệ thường."
   },
   {
     id: 4,
@@ -790,8 +790,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "lose" }
     ],
     correctLetter: 'A',
-    explanation: "locate = find (xác định vị trí, tìm thấy)",
-    explanationVi: "locate = find (tìm thấy, định vị)"
+    explanation: "'Locate' means to discover the exact place or position of something ('find').",
+    explanationVi: "'Locate' có nghĩa là tìm thấy, xác định vị trí ('find')."
   },
   {
     id: 5,
@@ -803,8 +803,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "believe" }
     ],
     correctLetter: 'B',
-    explanation: "pretend = fake / simulate (giả vờ, làm giả)",
-    explanationVi: "pretend = fake (giả vờ, giả bộ)"
+    explanation: "'Pretend' means to behave so as to make an appear false or simulated ('fake').",
+    explanationVi: "'Pretend' có nghĩa là giả vờ, làm giả ('fake')."
   },
   {
     id: 6,
@@ -816,8 +816,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "in harmony" }
     ],
     correctLetter: 'C',
-    explanation: "threatened = in danger (bị đe dọa, lâm nguy)",
-    explanationVi: "threatened = in danger (bị đe dọa, gặp nguy hiểm)"
+    explanation: "'Threatened' means vulnerable to harm or placed in danger ('in danger').",
+    explanationVi: "'Threatened' có nghĩa là bị đe dọa, rơi vào tình trạng nguy hiểm ('in danger')."
   },
   {
     id: 7,
@@ -829,8 +829,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "confused" }
     ],
     correctLetter: 'B',
-    explanation: "afraid = fearful (lo sợ, sợ hãi)",
-    explanationVi: "afraid = fearful (e sợ, hoảng sợ)"
+    explanation: "'Afraid' means feeling fear or anxiety ('fearful').",
+    explanationVi: "'Afraid' có nghĩa là lo sợ, e sợ ('fearful')."
   },
   {
     id: 8,
@@ -842,8 +842,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "bland" }
     ],
     correctLetter: 'A',
-    explanation: "fragrant = aromatic (thơm, có mùi thơm ngát)",
-    explanationVi: "fragrant = aromatic (thơm ngát, ngào ngạt hương)"
+    explanation: "'Fragrant' and 'aromatic' both describe having a pleasant, sweet smell.",
+    explanationVi: "'Fragrant' và 'aromatic' đều mô tả hương thơm ngát, dễ chịu."
   },
   {
     id: 9,
@@ -855,8 +855,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "contest" }
     ],
     correctLetter: 'D',
-    explanation: "competition = contest (cuộc thi, sự cạnh tranh)",
-    explanationVi: "competition = contest (cuộc tranh tài, cuộc thi)"
+    explanation: "'Competition' refers to an event, match, or rivalry between parties ('contest').",
+    explanationVi: "'Competition' có nghĩa là cuộc thi đấu, cuộc tranh tài ('contest')."
   },
   {
     id: 10,
@@ -868,8 +868,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "intention" }
     ],
     correctLetter: 'C',
-    explanation: "tradition = custom (truyền thống, phong tục)",
-    explanationVi: "tradition = custom (truyền thống, tập quán)"
+    explanation: "'Tradition' and 'custom' both mean a long-established pattern of behavior.",
+    explanationVi: "'Tradition' và 'custom' đều chỉ truyền thống, tập quán lâu đời."
   },
   {
     id: 11,
@@ -881,8 +881,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "mate" }
     ],
     correctLetter: 'D',
-    explanation: "counterpart = mate / equivalent (bản đối chiếu, đối tác, nửa tương ứng)",
-    explanationVi: "counterpart = mate (bên tương ứng, đối tác, đối trọng)"
+    explanation: "'Counterpart' refers to a person or thing holding a corresponding position ('mate').",
+    explanationVi: "'Counterpart' chỉ đối tác, bên tương ứng hoặc bạn đồng hành ('mate')."
   },
   {
     id: 12,
@@ -894,8 +894,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "foreigner" }
     ],
     correctLetter: 'B',
-    explanation: "inhabitant = resident (cư dân, người sinh sống)",
-    explanationVi: "inhabitant = resident (cư dân, người ở)"
+    explanation: "'Inhabitant' and 'resident' both refer to a person or animal that lives in a place.",
+    explanationVi: "'Inhabitant' và 'resident' đều có nghĩa là cư dân, người sinh sống tại một khu vực."
   },
   {
     id: 13,
@@ -907,8 +907,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "practice" }
     ],
     correctLetter: 'A',
-    explanation: "adopt = accept / take up (tiếp nhận, áp dụng)",
-    explanationVi: "adopt = accept (nhận làm, chấp nhận áp dụng)"
+    explanation: "'Adopt' means to choose, take up, or accept an idea, plan, or method.",
+    explanationVi: "'Adopt' có nghĩa là nhận nuôi, chấp nhận hoặc áp dụng ('accept')."
   },
   {
     id: 14,
@@ -920,8 +920,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "particular" }
     ],
     correctLetter: 'C',
-    explanation: "controversial = arguable / debatable (gây tranh cãi)",
-    explanationVi: "controversial = arguable (gây nhiều tranh cãi)"
+    explanation: "'Controversial' means giving rise to disagreement or debate ('arguable').",
+    explanationVi: "'Controversial' có nghĩa là gây nhiều tranh cãi, có thể bàn cãi ('arguable')."
   },
   {
     id: 15,
@@ -933,8 +933,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "enemy" }
     ],
     correctLetter: 'B',
-    explanation: "immigrant = settler (người nhập cư, người đến định cư)",
-    explanationVi: "immigrant = settler (người nhập cư, dân định cư)"
+    explanation: "'Immigrant' and 'settler' both refer to a person who moves to a new region.",
+    explanationVi: "'Immigrant' và 'settler' chỉ người nhập cư, dân định cư ở vùng đất mới."
   },
   {
     id: 16,
@@ -946,8 +946,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "gone" }
     ],
     correctLetter: 'A',
-    explanation: "permanent = lasting (vĩnh cửu, lâu dài)",
-    explanationVi: "permanent = lasting (lâu dài, trường tồn)"
+    explanation: "'Permanent' means intended to remain unchanged indefinitely ('lasting').",
+    explanationVi: "'Permanent' có nghĩa là vĩnh cửu, lâu dài ('lasting')."
   },
   {
     id: 17,
@@ -959,8 +959,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "display" }
     ],
     correctLetter: 'D',
-    explanation: "exhibit = display (trưng bày, triển lãm)",
-    explanationVi: "exhibit = display (trưng bày, phô bày)"
+    explanation: "'Exhibit' means to show, present, or display publicly.",
+    explanationVi: "'Exhibit' có nghĩa là trưng bày, phô bày ('display')."
   },
   {
     id: 18,
@@ -972,8 +972,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "unity" }
     ],
     correctLetter: 'B',
-    explanation: "variety = assortment / diversity (sự đa dạng, tập hợp nhiều loại)",
-    explanationVi: "variety = assortment (sự đa dạng, chủng loại phong phú)"
+    explanation: "'Variety' refers to a collection of different things ('assortment').",
+    explanationVi: "'Variety' có nghĩa là sự đa dạng, sự kết hợp nhiều chủng loại ('assortment')."
   },
   {
     id: 19,
@@ -985,8 +985,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "advertise" }
     ],
     correctLetter: 'D',
-    explanation: "promote = advertise / encourage (quảng bá, thúc đẩy)",
-    explanationVi: "promote = advertise (quảng bá, tuyên truyền)"
+    explanation: "'Promote' means to support, publicize, or advertise a product or cause.",
+    explanationVi: "'Promote' có nghĩa là quảng bá, tuyên truyền ('advertise') hoặc thúc đẩy."
   },
   {
     id: 20,
@@ -998,8 +998,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "special" }
     ],
     correctLetter: 'C',
-    explanation: "captive = confined / imprisoned (bị giam giữ, bị nhốt)",
-    explanationVi: "captive = confined (bị giam cầm, giam giữ)"
+    explanation: "'Captive' means held as a prisoner or confined in a space.",
+    explanationVi: "'Captive' có nghĩa là bị giam giữ, bị giam cầm ('confined')."
   },
   {
     id: 21,
@@ -1011,8 +1011,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "need" }
     ],
     correctLetter: 'D',
-    explanation: "require = need (yêu cầu, đòi hỏi)",
-    explanationVi: "require = need (yêu cầu, cần đến)"
+    explanation: "'Require' means to need something for a particular purpose.",
+    explanationVi: "'Require' có nghĩa là yêu cầu, cần đến ('need')."
   },
   {
     id: 22,
@@ -1024,8 +1024,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "work on" }
     ],
     correctLetter: 'C',
-    explanation: "depend on = rely on (phụ thuộc vào, dựa vào)",
-    explanationVi: "depend on = rely on (phụ thuộc, trông cậy vào)"
+    explanation: "'Depend on' means to be controlled or determined by ('rely on').",
+    explanationVi: "'Depend on' có nghĩa là phụ thuộc vào, trông cậy vào ('rely on')."
   },
   {
     id: 23,
@@ -1037,8 +1037,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "achieve" }
     ],
     correctLetter: 'C',
-    explanation: "substitute = replace (thay thế)",
-    explanationVi: "substitute = replace (thay thế)"
+    explanation: "'Substitute' means to use or serve in place of another ('replace').",
+    explanationVi: "'Substitute' có nghĩa là thay thế ('replace')."
   },
   {
     id: 24,
@@ -1050,8 +1050,8 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "outcome" }
     ],
     correctLetter: 'B',
-    explanation: "origin = beginning / source (nguồn gốc, sự khởi đầu)",
-    explanationVi: "origin = beginning (nguồn gốc, điểm khởi đầu)"
+    explanation: "'Origin' refers to the point or place where something begins ('beginning').",
+    explanationVi: "'Origin' có nghĩa là nguồn gốc, điểm khởi đầu ('beginning')."
   },
   {
     id: 25,
@@ -1063,7 +1063,7 @@ export const CHAPTER2_POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: 'D', text: "extraordinary" }
     ],
     correctLetter: 'A',
-    explanation: "debatable = questionable / disputed (còn bàn cãi, chưa chắc chắn)",
-    explanationVi: "debatable = questionable (có thể gây bàn cãi, hoài nghi)"
+    explanation: "'Debatable' means open to discussion or questionable in truth.",
+    explanationVi: "'Debatable' có nghĩa là có thể tranh luận, gây nghi vấn ('questionable')."
   }
 ];

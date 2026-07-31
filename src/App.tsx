@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChapterPart, ChapterNumber } from './types';
 import { LanguageProvider } from './context/LanguageContext';
+import { ReaderSettingsProvider } from './context/ReaderSettingsContext';
+import { ReaderSettingsModal } from './components/ReaderSettingsModal';
 import { Navbar } from './components/Navbar';
 import { Part1WhatIs } from './components/Part1WhatIs';
 import { Part2Strategy } from './components/Part2Strategy';
@@ -273,6 +275,8 @@ function AppContent() {
           </div>
         </div>
       </footer>
+      {/* Reader Settings Modal */}
+      <ReaderSettingsModal />
     </div>
   );
 }
@@ -280,7 +284,9 @@ function AppContent() {
 export default function App() {
   return (
     <LanguageProvider>
-      <AppContent />
+      <ReaderSettingsProvider>
+        <AppContent />
+      </ReaderSettingsProvider>
     </LanguageProvider>
   );
 }

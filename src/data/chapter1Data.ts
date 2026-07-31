@@ -1261,7 +1261,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "prove" }
     ],
     correctLetter: "A",
-    explanation: "'Provide' and 'supply' both mean to make something available for use."
+    explanation: "'Provide' and 'supply' both mean to make something available for use.",
+    explanationVi: "'Provide' và 'supply' đều có nghĩa là cung cấp, làm cho thứ gì đó có sẵn để sử dụng."
   },
   {
     id: 2,
@@ -1273,7 +1274,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "involve" }
     ],
     correctLetter: "A",
-    explanation: "'Categorize' means to place into groups or classify."
+    explanation: "'Categorize' means to place into groups or classify.",
+    explanationVi: "'Categorize' và 'classify' đều có nghĩa là phân loại hoặc xếp vào các nhóm."
   },
   {
     id: 3,
@@ -1285,7 +1287,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "be possible" }
     ],
     correctLetter: "A",
-    explanation: "'Make sense' means to be logical or reasonable."
+    explanation: "'Make sense' means to be logical or reasonable.",
+    explanationVi: "'Make sense' có nghĩa là hợp lý, có lý ('be reasonable') hoặc dễ hiểu."
   },
   {
     id: 4,
@@ -1297,7 +1300,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "confirm" }
     ],
     correctLetter: "B",
-    explanation: "'Eliminate' means to completely remove or get rid of."
+    explanation: "'Eliminate' means to completely remove or get rid of.",
+    explanationVi: "'Eliminate' có nghĩa là loại bỏ hoàn toàn ('remove' hoặc 'get rid of')."
   },
   {
     id: 5,
@@ -1309,7 +1313,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "unique" }
     ],
     correctLetter: "D",
-    explanation: "'Original' refers to initial or distinctively unique creations."
+    explanation: "'Original' refers to initial or distinctively unique creations.",
+    explanationVi: "'Original' chỉ tác phẩm/ý tưởng ban đầu hoặc độc đáo, riêng biệt ('unique')."
   },
   {
     id: 6,
@@ -1321,7 +1326,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "suitable" }
     ],
     correctLetter: "D",
-    explanation: "'Proper' means appropriate, right, or suitable."
+    explanation: "'Proper' means appropriate, right, or suitable.",
+    explanationVi: "'Proper' có nghĩa là thích hợp, phù hợp ('suitable') hoặc đúng đắn."
   },
   {
     id: 7,
@@ -1333,7 +1339,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "return" }
     ],
     correctLetter: "C",
-    explanation: "'Decrease' and 'lessen' both mean to make smaller in amount or degree."
+    explanation: "'Decrease' and 'lessen' both mean to make smaller in amount or degree.",
+    explanationVi: "'Decrease' và 'lessen' đều có nghĩa là giảm bớt, làm nhỏ đi về số lượng hay mức độ."
   },
   {
     id: 8,
@@ -1345,7 +1352,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "approve" }
     ],
     correctLetter: "C",
-    explanation: "'Disagree' means to differ in opinion or oppose."
+    explanation: "'Disagree' means to differ in opinion or oppose.",
+    explanationVi: "'Disagree' có nghĩa là bất đồng ý kiến hoặc phản đối ('oppose')."
   },
   {
     id: 9,
@@ -1357,7 +1365,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "start to" }
     ],
     correctLetter: "B",
-    explanation: "'Extract' (ex = out + tract = draw) means to pull out."
+    explanation: "'Extract' (ex = out + tract = draw) means to pull out.",
+    explanationVi: "'Extract' (tiền tố ex = out + gốc tract = draw) có nghĩa là rút ra, trích xuất ('pull out')."
   },
   {
     id: 10,
@@ -1369,7 +1378,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "predict" }
     ],
     correctLetter: "D",
-    explanation: "'Forecast' (fore = before + cast = estimate) means to predict."
+    explanation: "'Forecast' (fore = before + cast = estimate) means to predict.",
+    explanationVi: "'Forecast' (tiền tố fore = before + cast = estimate) có nghĩa là dự đoán, tiên đoán ('predict')."
   },
   {
     id: 11,
@@ -1381,7 +1391,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "extend" }
     ],
     correctLetter: "C",
-    explanation: "'Interrupt' means to break into an ongoing action or disturb."
+    explanation: "'Interrupt' means to break into an ongoing action or disturb.",
+    explanationVi: "'Interrupt' (tiền tố inter = between + gốc rupt = break) có nghĩa là ngắt lời, làm gián đoạn ('disturb')."
   },
   {
     id: 12,
@@ -1393,7 +1404,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "resume" }
     ],
     correctLetter: "A",
-    explanation: "'Postpone' (post = after + pon = put) means to delay."
+    explanation: "'Postpone' (post = after + pon = put) means to delay.",
+    explanationVi: "'Postpone' (tiền tố post = after + gốc pon = put) có nghĩa là hoãn lại, làm chậm trễ ('delay')."
   },
   {
     id: 13,
@@ -1405,7 +1417,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "reveal" }
     ],
     correctLetter: "B",
-    explanation: "'Revoke' (re = back + vok = call) means to officially cancel or annul."
+    explanation: "'Revoke' (re = back + vok = call) means to officially cancel or annul.",
+    explanationVi: "'Revoke' (tiền tố re = back + gốc vok = call) có nghĩa là thu hồi, hủy bỏ chính thức ('cancel')."
   },
   {
     id: 14,
@@ -1417,7 +1430,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "argumentative" }
     ],
     correctLetter: "D",
-    explanation: "'Quarrelsome' means quick to argue or argumentative."
+    explanation: "'Quarrelsome' means quick to argue or argumentative.",
+    explanationVi: "'Quarrelsome' có nghĩa là hay tranh cãi, hay gây gổ ('argumentative')."
   },
   {
     id: 15,
@@ -1429,7 +1443,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "sacred" }
     ],
     correctLetter: "B",
-    explanation: "'Sovereign' refers to a supreme or dominant authority/ruler."
+    explanation: "'Sovereign' refers to a supreme or dominant authority/ruler.",
+    explanationVi: "'Sovereign' chỉ quyền lực tối cao hoặc người cai trị có ảnh hưởng áp đảo ('dominant')."
   },
   {
     id: 16,
@@ -1441,7 +1456,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "abnormal" }
     ],
     correctLetter: "A",
-    explanation: "'Unique' means being one of a kind or distinctive."
+    explanation: "'Unique' means being one of a kind or distinctive.",
+    explanationVi: "'Unique' có nghĩa là độc nhất, có đặc trưng riêng biệt ('distinctive')."
   },
   {
     id: 17,
@@ -1453,7 +1469,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "handled" }
     ],
     correctLetter: "C",
-    explanation: "'Overlooked' means passed over or left unnoticed."
+    explanation: "'Overlooked' means passed over or left unnoticed.",
+    explanationVi: "'Overlooked' có nghĩa là bị bỏ qua, không được chú ý tới ('unnoticed')."
   },
   {
     id: 18,
@@ -1465,7 +1482,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "play a role" }
     ],
     correctLetter: "D",
-    explanation: "'Play a part' means to contribute to or play a role in something."
+    explanation: "'Play a part' means to contribute to or play a role in something.",
+    explanationVi: "'Play a part' có nghĩa là đóng một vai trò ('play a role') hoặc góp phần vào điều gì đó."
   },
   {
     id: 19,
@@ -1477,7 +1495,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "race" }
     ],
     correctLetter: "B",
-    explanation: "'Raise' and 'elevate' both mean to lift or move to a higher position."
+    explanation: "'Raise' and 'elevate' both mean to lift or move to a higher position.",
+    explanationVi: "'Raise' và 'elevate' đều có nghĩa là nâng lên hoặc đưa lên vị trí cao hơn."
   },
   {
     id: 20,
@@ -1489,7 +1508,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "various" }
     ],
     correctLetter: "B",
-    explanation: "'Appropriate' means suitable, proper, or correct for the context."
+    explanation: "'Appropriate' means suitable, proper, or correct for the context.",
+    explanationVi: "'Appropriate' có nghĩa là thích hợp, phù hợp, đúng đắn ('correct') trong ngữ cảnh."
   },
   {
     id: 21,
@@ -1501,7 +1521,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "include" }
     ],
     correctLetter: "C",
-    explanation: "'Insist' means to maintain firmly or demand forcefully."
+    explanation: "'Insist' means to maintain firmly or demand forcefully.",
+    explanationVi: "'Insist' có nghĩa là khăng khăng, đòi hỏi một cách kiên quyết ('demand')."
   },
   {
     id: 22,
@@ -1513,7 +1534,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "carefully" }
     ],
     correctLetter: "C",
-    explanation: "'Frankly' means openly, directly, or honestly."
+    explanation: "'Frankly' means openly, directly, or honestly.",
+    explanationVi: "'Frankly' có nghĩa là thẳng thắn, bộc bạch, thành thật ('honestly')."
   },
   {
     id: 23,
@@ -1525,7 +1547,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "pretty" }
     ],
     correctLetter: "B",
-    explanation: "'Polite' means showing courteous behavior, gracious."
+    explanation: "'Polite' means showing courteous behavior, gracious.",
+    explanationVi: "'Polite' có nghĩa là lịch sự, tao nhã, nhã nhặn ('gracious')."
   },
   {
     id: 24,
@@ -1537,7 +1560,8 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "superior" }
     ],
     correctLetter: "A",
-    explanation: "'Trustworthy' means dependable or reliable."
+    explanation: "'Trustworthy' means dependable or reliable.",
+    explanationVi: "'Trustworthy' có nghĩa là đáng tin cậy, có thể trông cậy ('reliable')."
   },
   {
     id: 25,
@@ -1549,6 +1573,7 @@ export const POP_QUIZ_QUESTIONS: PopQuizQuestion[] = [
       { letter: "D", text: "attract" }
     ],
     correctLetter: "B",
-    explanation: "'Reject' means to refuse to accept or decline."
+    explanation: "'Reject' means to refuse to accept or decline.",
+    explanationVi: "'Reject' có nghĩa là từ chối, bác bỏ ('decline')."
   }
 ];
