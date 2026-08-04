@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-export type ReadingTheme = 'modern' | 'sepia' | 'dark' | 'mint';
+export type ReadingTheme = 'modern' | 'sepia' | 'dark' | 'mint' | 'nordic' | 'velvet';
 export type FontSize = 'sm' | 'base' | 'lg' | 'xl';
 export type FontStyle = 'sans' | 'serif' | 'mono';
 export type HighlightColor = 'amber' | 'emerald' | 'sky' | 'violet' | 'underline';
 export type LineHeightOption = 'compact' | 'comfortable' | 'spacious';
-export type LayoutMode = 'split' | 'stacked';
+export type LayoutMode = 'split' | 'stacked' | 'zen';
 
 interface ReaderSettings {
   readingTheme: ReadingTheme;
@@ -90,6 +90,7 @@ export const ReaderSettingsProvider: React.FC<{ children: ReactNode }> = ({ chil
           cardBg: 'bg-[#f4eee0]',
           text: 'text-[#43382c]',
           border: 'border-[#e6dcbf]',
+          accentBg: 'bg-[#e8dec0]',
         };
       case 'dark':
         return {
@@ -97,6 +98,23 @@ export const ReaderSettingsProvider: React.FC<{ children: ReactNode }> = ({ chil
           cardBg: 'bg-slate-800',
           text: 'text-slate-100',
           border: 'border-slate-700',
+          accentBg: 'bg-slate-700/60',
+        };
+      case 'nordic':
+        return {
+          bg: 'bg-[#0f172a]',
+          cardBg: 'bg-[#1e293b]',
+          text: 'text-slate-100',
+          border: 'border-slate-700/80',
+          accentBg: 'bg-[#334155]',
+        };
+      case 'velvet':
+        return {
+          bg: 'bg-[#120826]',
+          cardBg: 'bg-[#1e103d]',
+          text: 'text-purple-100',
+          border: 'border-[#392168]',
+          accentBg: 'bg-[#2b1754]',
         };
       case 'mint':
         return {
@@ -104,6 +122,7 @@ export const ReaderSettingsProvider: React.FC<{ children: ReactNode }> = ({ chil
           cardBg: 'bg-[#dcfce7]',
           text: 'text-emerald-950',
           border: 'border-emerald-200',
+          accentBg: 'bg-emerald-100',
         };
       case 'modern':
       default:
@@ -112,6 +131,7 @@ export const ReaderSettingsProvider: React.FC<{ children: ReactNode }> = ({ chil
           cardBg: 'bg-white',
           text: 'text-slate-800',
           border: 'border-slate-200',
+          accentBg: 'bg-slate-100',
         };
     }
   };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { QUIZ_YOURSELF_EXERCISES } from '../data/quizYourselfData';
-import { Volume2, CheckCircle2, XCircle, Bookmark, BookmarkCheck, RotateCcw, HelpCircle, Sliders } from 'lucide-react';
+import { Volume2, CheckCircle2, XCircle, Bookmark, BookmarkCheck, RotateCcw, HelpCircle, Sliders, Columns2, Rows2, Focus } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useReaderSettings } from '../context/ReaderSettingsContext';
 
@@ -25,6 +25,7 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
     getPassageThemeClasses,
     getHighlightClasses,
     getTypographyClasses,
+    setLayoutMode,
     toggleSettingsModal
   } = useReaderSettings();
   const [selectedExerciseId, setSelectedExerciseId] = useState<number>(1);
@@ -106,7 +107,7 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
   });
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto py-6 px-4">
+    <div className="space-y-8 max-w-7xl xl:max-w-[1440px] mx-auto py-6 px-4 sm:px-6">
       {/* Banner */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
         <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
@@ -222,12 +223,12 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
         })}
       </div>
 
-      {/* Active Exercise Reading Passage Box */}
+      {/* Active Exercise Reading Passage & Layout */}
       {(() => {
         const themeCls = getPassageThemeClasses();
         const typoCls = getTypographyClasses();
 
-        return (
+        const renderPassageCard = () => (
           <div className={`${themeCls.cardBg} rounded-2xl p-6 sm:p-8 border ${themeCls.border} shadow-sm space-y-4 transition-all`}>
             <div className={`flex items-center justify-between border-b ${themeCls.border} pb-3 flex-wrap gap-2`}>
               <h3 className={`text-lg font-bold ${themeCls.text} flex items-center space-x-2`}>
@@ -236,13 +237,48 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
               </h3>
 
               <div className="flex items-center space-x-2">
+                {/* Quick Layout Toolbar */}
+                <div className="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl border border-slate-200/80">
+                  <button
+                    onClick={() => setLayoutMode('split')}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all ${
+                      settings.layoutMode === 'split' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                    title="Side-by-Side Split View"
+                  >
+                    <Columns2 className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">{language === 'vi' ? 'Song Song' : 'Split'}</span>
+                  </button>
+
+                  <button
+                    onClick={() => setLayoutMode('stacked')}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all ${
+                      settings.layoutMode === 'stacked' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                    title="Stacked Vertical View"
+                  >
+                    <Rows2 className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">{language === 'vi' ? 'Xếp Dọc' : 'Stacked'}</span>
+                  </button>
+
+                  <button
+                    onClick={() => setLayoutMode('zen')}
+                    className={`flex items-center space-x-1 px-2 py-1 rounded-lg text-xs font-semibold transition-all ${
+                      settings.layoutMode === 'zen' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                    title="Zen Focus View"
+                  >
+                    <Focus className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">{language === 'vi' ? 'Tập Trung' : 'Zen'}</span>
+                  </button>
+                </div>
+
                 <button
                   onClick={toggleSettingsModal}
-                  className="flex items-center space-x-1 text-xs text-slate-600 hover:text-slate-900 bg-slate-100/80 px-2.5 py-1.5 rounded-lg border border-slate-200 font-semibold transition-colors"
+                  className="p-1.5 text-slate-600 hover:text-slate-900 bg-slate-100/80 rounded-xl border border-slate-200 transition-colors"
                   title="Customize fonts, colors & theme"
                 >
-                  <Sliders className="w-3.5 h-3.5 text-indigo-600" />
-                  <span className="hidden sm:inline">{language === 'vi' ? 'Tùy chỉnh' : 'UI Settings'}</span>
+                  <Sliders className="w-4 h-4 text-indigo-600" />
                 </button>
 
                 <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
@@ -256,146 +292,182 @@ export const QuizYourself: React.FC<QuizYourselfProps> = ({
             </div>
           </div>
         );
-      })()}
 
-      {/* Questions Grid / List for Active Exercise */}
-      <div className="space-y-4">
-        <h4 className="text-base font-bold text-slate-800 px-1">
-          {language === 'vi'
-            ? `Câu hỏi cho ${activeExercise.title}`
-            : `Questions for ${activeExercise.title}`}
-        </h4>
+        const renderQuestionsList = (columns: number) => (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between px-1">
+              <h4 className="text-base font-bold text-slate-800">
+                {language === 'vi'
+                  ? `Câu hỏi cho ${activeExercise.title}`
+                  : `Questions for ${activeExercise.title}`}
+              </h4>
+              <span className="text-xs text-slate-400 font-medium capitalize">
+                {settings.layoutMode === 'split' ? 'Side-by-Side Split View' : settings.layoutMode === 'stacked' ? 'Stacked Vertical View' : 'Zen Focus View'}
+              </span>
+            </div>
 
-        {filteredQuestions.length === 0 ? (
-          <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-500 space-y-2">
-            <HelpCircle className="w-8 h-8 text-slate-300 mx-auto" />
-            <p className="font-medium text-sm">
-              {language === 'vi' ? 'Không có câu hỏi nào phù hợp với bộ lọc.' : 'No questions match the current filter.'}
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredQuestions.map((q) => {
-              const userAns = userAnswers[q.id];
-              const isAnswered = userAns !== undefined;
-              const isCorrect = userAns === q.correctIndex;
-              const isFocused = activeQuestionId === q.id;
-              const isBookmarked = bookmarkedWords.includes(q.word);
+            {filteredQuestions.length === 0 ? (
+              <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-500 space-y-2">
+                <HelpCircle className="w-8 h-8 text-slate-300 mx-auto" />
+                <p className="font-medium text-sm">
+                  {language === 'vi' ? 'Không có câu hỏi nào phù hợp với bộ lọc.' : 'No questions match the current filter.'}
+                </p>
+              </div>
+            ) : (
+              <div className={`grid grid-cols-1 ${columns > 1 ? 'md:grid-cols-2' : ''} gap-4`}>
+                {filteredQuestions.map((q) => {
+                  const userAns = userAnswers[q.id];
+                  const isAnswered = userAns !== undefined;
+                  const isCorrect = userAns === q.correctIndex;
+                  const isFocused = activeQuestionId === q.id;
+                  const isBookmarked = bookmarkedWords.includes(q.word);
 
-              return (
-                <div
-                  id={`quiz-q-${q.id}`}
-                  key={q.id}
-                  className={`bg-white rounded-2xl p-5 border transition-all space-y-4 flex flex-col justify-between ${
-                    isFocused
-                      ? 'border-indigo-600 ring-2 ring-indigo-200 shadow-md'
-                      : isAnswered
-                      ? isCorrect
-                        ? 'border-emerald-300 bg-emerald-50/20'
-                        : 'border-red-300 bg-red-50/20'
-                      : 'border-slate-200 hover:border-slate-300 shadow-xs'
-                  }`}
-                >
-                  <div className="space-y-3">
-                    {/* Header */}
-                    <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-100">
-                      <span className="font-bold text-slate-900">
-                        {language === 'vi' ? `Câu #${q.id}` : `Question #${q.id}`} • {language === 'vi' ? 'Từ mục tiêu:' : 'Target Word:'}{' '}
-                        <mark className="bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-bold">{q.word}</mark>
-                      </span>
-
-                      <div className="flex items-center space-x-2">
-                        <button
-                          onClick={() => handleSpeak(q.word)}
-                          className="p-1 hover:bg-slate-100 text-slate-500 hover:text-slate-800 rounded transition-all"
-                          title="Listen pronunciation"
-                        >
-                          <Volume2 className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => onToggleBookmark(q.word)}
-                          className={`p-1 rounded transition-all ${
-                            isBookmarked
-                              ? 'text-amber-500 hover:bg-amber-50'
-                              : 'text-slate-400 hover:bg-slate-100 hover:text-slate-600'
-                          }`}
-                          title={isBookmarked ? 'Remove bookmark' : 'Bookmark word'}
-                        >
-                          {isBookmarked ? <BookmarkCheck className="w-4 h-4 fill-amber-400" /> : <Bookmark className="w-4 h-4" />}
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Question Prompt */}
-                    <p className="text-sm font-semibold text-slate-900 leading-snug">
-                      {q.questionText}
-                    </p>
-
-                    {/* Options */}
-                    <div className="space-y-2 pt-1">
-                      {q.options.map((optText, optIdx) => {
-                        let btnStyle = 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-indigo-50 hover:border-indigo-300';
-
-                        if (isAnswered) {
-                          if (optIdx === q.correctIndex) {
-                            btnStyle = 'bg-emerald-100 border-emerald-500 text-emerald-950 font-bold shadow-xs';
-                          } else if (optIdx === userAns) {
-                            btnStyle = 'bg-red-100 border-red-400 text-red-950 font-medium';
-                          } else {
-                            btnStyle = 'bg-slate-50 border-slate-200 text-slate-400 opacity-60';
-                          }
-                        }
-
-                        return (
-                          <button
-                            key={optIdx}
-                            onClick={() => onAnswerQuestion(q.id, optIdx)}
-                            className={`w-full text-left px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between ${btnStyle}`}
-                          >
-                            <span>{optText}</span>
-                            {isAnswered && optIdx === q.correctIndex && (
-                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 ml-2" />
-                            )}
-                            {isAnswered && optIdx === userAns && optIdx !== q.correctIndex && (
-                              <XCircle className="w-4 h-4 text-red-600 shrink-0 ml-2" />
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Feedback Explanation */}
-                  {isAnswered && (
+                  return (
                     <div
-                      className={`p-3.5 rounded-xl text-xs space-y-1.5 mt-2 ${
-                        isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-red-50 border border-red-200 text-red-900'
+                      id={`quiz-q-${q.id}`}
+                      key={q.id}
+                      className={`bg-white rounded-2xl p-5 border transition-all space-y-4 flex flex-col justify-between ${
+                        isFocused
+                          ? 'border-indigo-600 ring-2 ring-indigo-200 shadow-md'
+                          : isAnswered
+                          ? isCorrect
+                            ? 'border-emerald-300 bg-emerald-50/20'
+                            : 'border-red-300 bg-red-50/20'
+                          : 'border-slate-200 hover:border-slate-300 shadow-xs'
                       }`}
                     >
-                      <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-[10px]">
-                        {isCorrect ? (
-                          <>
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-emerald-700">{language === 'vi' ? 'CHÍNH XÁC' : 'CORRECT ANSWER'}</span>
-                          </>
-                        ) : (
-                          <>
-                            <XCircle className="w-3.5 h-3.5 text-red-600" />
-                            <span className="text-red-700">{language === 'vi' ? 'CHƯA CHÍNH XÁC' : 'INCORRECT'}</span>
-                          </>
-                        )}
+                      <div className="space-y-3">
+                        {/* Header */}
+                        <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-100">
+                          <span className="font-bold text-slate-900">
+                            {language === 'vi' ? `Câu #${q.id}` : `Question #${q.id}`} • {language === 'vi' ? 'Từ mục tiêu:' : 'Target Word:'}{' '}
+                            <mark className="bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-bold">{q.word}</mark>
+                          </span>
+
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => handleSpeak(q.word)}
+                              className="p-1 hover:bg-slate-100 text-slate-500 hover:text-slate-800 rounded transition-all"
+                              title="Listen pronunciation"
+                            >
+                              <Volume2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => onToggleBookmark(q.word)}
+                              className={`p-1 rounded transition-all ${
+                                isBookmarked
+                                  ? 'text-amber-500 hover:bg-amber-50'
+                                  : 'text-slate-400 hover:bg-slate-100 hover:text-slate-600'
+                              }`}
+                              title={isBookmarked ? 'Remove bookmark' : 'Bookmark word'}
+                            >
+                              {isBookmarked ? <BookmarkCheck className="w-4 h-4 fill-amber-400" /> : <Bookmark className="w-4 h-4" />}
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Question Prompt */}
+                        <p className="text-sm font-semibold text-slate-900 leading-snug">
+                          {q.questionText}
+                        </p>
+
+                        {/* Options */}
+                        <div className="space-y-2 pt-1">
+                          {q.options.map((optText, optIdx) => {
+                            let btnStyle = 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-indigo-50 hover:border-indigo-300';
+
+                            if (isAnswered) {
+                              if (optIdx === q.correctIndex) {
+                                btnStyle = 'bg-emerald-100 border-emerald-500 text-emerald-950 font-bold shadow-xs';
+                              } else if (optIdx === userAns) {
+                                btnStyle = 'bg-red-100 border-red-400 text-red-950 font-medium';
+                              } else {
+                                btnStyle = 'bg-slate-50 border-slate-200 text-slate-400 opacity-60';
+                              }
+                            }
+
+                            return (
+                              <button
+                                key={optIdx}
+                                onClick={() => onAnswerQuestion(q.id, optIdx)}
+                                className={`w-full text-left px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between ${btnStyle}`}
+                              >
+                                <span>{optText}</span>
+                                {isAnswered && optIdx === q.correctIndex && (
+                                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 ml-2" />
+                                )}
+                                {isAnswered && optIdx === userAns && optIdx !== q.correctIndex && (
+                                  <XCircle className="w-4 h-4 text-red-600 shrink-0 ml-2" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
-                      <p className="leading-relaxed">
-                        {getExplanation(q)}
-                      </p>
+
+                      {/* Feedback Explanation */}
+                      {isAnswered && (
+                        <div
+                          className={`p-3.5 rounded-xl text-xs space-y-1.5 mt-2 ${
+                            isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-red-50 border border-red-200 text-red-900'
+                          }`}
+                        >
+                          <div className="flex items-center space-x-1.5 font-bold uppercase tracking-wider text-[10px]">
+                            {isCorrect ? (
+                              <>
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                                <span className="text-emerald-700">{language === 'vi' ? 'CHÍNH XÁC' : 'CORRECT ANSWER'}</span>
+                              </>
+                            ) : (
+                              <>
+                                <XCircle className="w-3.5 h-3.5 text-red-600" />
+                                <span className="text-red-700">{language === 'vi' ? 'CHƯA CHÍNH XÁC' : 'INCORRECT'}</span>
+                              </>
+                            )}
+                          </div>
+                          <p className="leading-relaxed">
+                            {getExplanation(q)}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        );
+
+        if (settings.layoutMode === 'split') {
+          return (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+                {renderPassageCard()}
+              </div>
+              <div className="lg:col-span-7 space-y-4">
+                {renderQuestionsList(1)}
+              </div>
+            </div>
+          );
+        }
+
+        if (settings.layoutMode === 'zen') {
+          return (
+            <div className="max-w-3xl mx-auto space-y-8">
+              {renderPassageCard()}
+              {renderQuestionsList(1)}
+            </div>
+          );
+        }
+
+        // Stacked view
+        return (
+          <div className="space-y-8">
+            {renderPassageCard()}
+            {renderQuestionsList(2)}
+          </div>
+        );
+      })()}
     </div>
   );
 };

@@ -58,25 +58,27 @@ export const ReaderSettingsModal: React.FC = () => {
               <Eye className="w-4 h-4 text-indigo-500" />
               {language === 'vi' ? '1. Chế Độ Đọc & Phông Nền' : '1. Reading Theme & Paper Color'}
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
                 { id: 'modern', name: language === 'vi' ? 'Hiện Đại' : 'Modern Clean', bg: 'bg-white', border: 'border-slate-300', text: 'text-slate-800' },
-                { id: 'sepia', name: language === 'vi' ? 'Ấm Ấp (Sepia)' : 'Warm Sepia', bg: 'bg-[#f6f0e2]', border: 'border-[#e4d8be]', text: 'text-[#43382c]' },
-                { id: 'mint', name: language === 'vi' ? 'Dịu Mắt (Mint)' : 'Fresh Mint', bg: 'bg-[#e8f8f0]', border: 'border-[#c6ecd7]', text: 'text-emerald-950' },
-                { id: 'dark', name: language === 'vi' ? 'Tối (Night)' : 'Night Dark', bg: 'bg-slate-800', border: 'border-slate-700', text: 'text-slate-100' },
+                { id: 'sepia', name: language === 'vi' ? 'Ấm Áp' : 'Warm Sepia', bg: 'bg-[#f6f0e2]', border: 'border-[#e4d8be]', text: 'text-[#43382c]' },
+                { id: 'mint', name: language === 'vi' ? 'Dịu Mắt' : 'Fresh Mint', bg: 'bg-[#e8f8f0]', border: 'border-[#c6ecd7]', text: 'text-emerald-950' },
+                { id: 'dark', name: language === 'vi' ? 'Tối Đen' : 'Night Obsidian', bg: 'bg-slate-900', border: 'border-slate-700', text: 'text-slate-100' },
+                { id: 'nordic', name: language === 'vi' ? 'Bắc Âu (Nordic)' : 'Nordic Deep', bg: 'bg-[#0f172a]', border: 'border-slate-700', text: 'text-slate-100' },
+                { id: 'velvet', name: language === 'vi' ? 'Nhung Hoàng Gia' : 'Royal Velvet', bg: 'bg-[#120826]', border: 'border-purple-900', text: 'text-purple-100' },
               ].map((theme) => (
                 <button
                   key={theme.id}
                   onClick={() => setReadingTheme(theme.id as ReadingTheme)}
                   className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-between h-20 ${theme.bg} ${theme.border} ${theme.text} ${
                     settings.readingTheme === theme.id
-                      ? 'ring-2 ring-indigo-600 shadow-md scale-105'
+                      ? 'ring-2 ring-indigo-500 shadow-lg scale-105 font-bold'
                       : 'hover:opacity-90 opacity-80'
                   }`}
                 >
-                  <span className="text-xs font-bold">{theme.name}</span>
-                  <div className="flex items-center gap-1 text-[11px] opacity-75">
-                    {settings.readingTheme === theme.id && <Check className="w-3.5 h-3.5 text-indigo-600" />}
+                  <span className="text-xs font-bold truncate">{theme.name}</span>
+                  <div className="flex items-center gap-1 text-[11px] opacity-80">
+                    {settings.readingTheme === theme.id && <Check className="w-3.5 h-3.5 text-indigo-400" />}
                     <span>Aa Bb</span>
                   </div>
                 </button>
@@ -208,20 +210,21 @@ export const ReaderSettingsModal: React.FC = () => {
             <div>
               <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
                 <Layout className="w-4 h-4 text-indigo-500" />
-                {language === 'vi' ? 'Bố Cục Đoạn Văn' : 'Passage Layout'}
+                {language === 'vi' ? 'Bố Cục Trình Diễn Đoạn Văn' : 'Passage Layout Presentation'}
               </label>
-              <div className="flex bg-slate-100 p-1 rounded-xl">
+              <div className="flex bg-slate-100 p-1 rounded-xl gap-1">
                 {[
-                  { id: 'split', label: language === 'vi' ? 'Chia Cột (Split)' : 'Side-by-Side' },
-                  { id: 'stacked', label: language === 'vi' ? 'Xếp Dọc (Stacked)' : 'Stacked' },
+                  { id: 'split', label: language === 'vi' ? 'Chia Cột (Split)' : 'Side-by-Side Split' },
+                  { id: 'stacked', label: language === 'vi' ? 'Xếp Dọc' : 'Stacked Vertical' },
+                  { id: 'zen', label: language === 'vi' ? 'Tập Trung (Zen)' : 'Zen Focus' },
                 ].map((mode) => (
                   <button
                     key={mode.id}
                     onClick={() => setLayoutMode(mode.id as LayoutMode)}
                     className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                       settings.layoutMode === mode.id
-                        ? 'bg-white text-indigo-700 shadow-sm'
-                        : 'text-slate-600 hover:text-slate-900'
+                        ? 'bg-indigo-600 text-white shadow-sm'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                     }`}
                   >
                     {mode.label}
